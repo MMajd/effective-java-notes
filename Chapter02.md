@@ -351,7 +351,7 @@ CloneNotSupportedException.
 		}
 	```
 
-- Difference based comparators violates transitivty
+- Difference based comparators violates transitivity
 
 	```java 
 	// BROKEN difference-based comparator - violates transitivity!

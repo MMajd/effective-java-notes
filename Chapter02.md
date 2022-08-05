@@ -27,25 +27,25 @@
 
 - There is no way to extend an instantiable class and add a value component while preserving the equals contract, While there is no satisfactory way to extend an instantiable class and add a value component, there is a fine workaround: Follow the advice of Item 18, “Favor composition over inheritance.” Instead of having ColorPoint extend Point, give ColorPoint a private Point field and a public view method that returns the point at the same position as this color point:
 
-```java
-// Adds a value component without violating the equals contract
-public class ColorPoint {
-    private final Point point;
-    private final Color color;
+	```java
+	// Adds a value component without violating the equals contract
+	public class ColorPoint {
+		private final Point point;
+		private final Color color;
 
-    public ColorPoint(int x, int y, Color color) {
-        point = new Point(x, y);
-        this.color = Objects.requireNonNull(color);
-    }
-    /** Returns the point-view of this color point. */
-    public Point asPoint() { return point; }
-    @Override public boolean equals(Object o) {
-        if (!(o instanceof ColorPoint)) return false;
-        ColorPoint cp = (ColorPoint) o;
-        return cp.point.equals(point) && cp.color.equals(color);
-    }
-}
-```
+		public ColorPoint(int x, int y, Color color) {
+		    point = new Point(x, y);
+		    this.color = Objects.requireNonNull(color);
+		}
+		/** Returns the point-view of this color point. */
+		public Point asPoint() { return point; }
+		@Override public boolean equals(Object o) {
+		    if (!(o instanceof ColorPoint)) return false;
+		    ColorPoint cp = (ColorPoint) o;
+		    return cp.point.equals(point) && cp.color.equals(color);
+		}
+	}
+	```
 
 - There are some classes in the Java platform libraries that do extend an
 instantiable class and add a value component. For example, java.sql.Timestamp extends java.util.Date and adds a nanoseconds field. The equals implementation for Timestamp does violate symmetry and can cause erratic behavior if Timestamp and Date objects are used in the same collection or are otherwise intermixed. The Timestamp class has a disclaimer cautioning programmers against mixing dates and timestamps. While you won’t get into trouble as long as you keep them separate, there’s nothing to prevent you from mixing them, and the resulting errors can be hard to debug. This behavior of the Timestamp class was a mistake and should not be emulated

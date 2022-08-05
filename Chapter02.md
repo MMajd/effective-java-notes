@@ -380,7 +380,7 @@ In summary, whenever you implement a value class that has a sensible
 ordering, you should have the class implement the Comparable interface so
 that its instances can be easily sorted, searched, and used in comparison-based
 collections. When comparing field values in the implementations of the
-compareTo methods, avoid the use of the < and > operators. Instead, use the
+compareTo methods, avoid the use of the ***{<, >, -}*** operators. Instead, use the
 static compare methods in the boxed primitive classes or the comparator
 construction methods in the Comparator interface.
 
